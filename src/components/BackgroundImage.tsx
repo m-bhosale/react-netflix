@@ -1,7 +1,6 @@
-import React from "react";
 
-const BackgroundImage = ({ imageUrl }) => {
-  console.log("src/assets/login.jpg",imageUrl)
+const BackgroundImage = ({ imageUrl }:any) => {
+  console.log("login.jpg",imageUrl)
   return (
     <div className="backGroundImg absolute inset-0 w-full h-full overflow-hidden z-0">
       <img

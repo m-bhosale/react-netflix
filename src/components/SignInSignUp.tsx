@@ -1,8 +1,7 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-function SignInSignUp({ signInOrUp, signIn, signUp }) {
+function SignInSignUp({ signInOrUp, signIn, signUp }:any) {
   const validationSchema = Yup.object().shape({
     // Define your validation rules here
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -29,6 +28,7 @@ function SignInSignUp({ signInOrUp, signIn, signUp }) {
               onSubmit={(values) => {
                 // Handle form submission
                 console.log(values);
+                
               }}
             >
               <Form className="w-full p-4 md:p-11 m-0">
@@ -97,7 +97,7 @@ function SignInSignUp({ signInOrUp, signIn, signUp }) {
                     <h1>
                       {signIn ? "New to Netflix " : "Existing User "}
                       <Link
-                        to={signIn ? "/signUp" : "/signIn"}
+                        to={signIn ? "/signUp" : "/"}
                         className="text-white"
                       >
                         <span className="text-white p-2  ">

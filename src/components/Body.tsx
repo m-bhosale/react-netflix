@@ -10,7 +10,7 @@ const Body = () => {
       element: <Browse />,
     },
     {
-      path: "/signIn",
+      path: "/",
       element: <SignIn />,
     },
     {
