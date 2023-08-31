@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { RouterProvider } from "react-router-dom";
 import SignIn from "./SignIn";
 import SignUpComp from "./SignUp";
+import Home from "./Home";
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
@@ -17,6 +18,10 @@ const Body = () => {
         path: "/signUp",
         element: <SignUpComp />,
       },
+      {
+        path: "/home",
+        element:<Home/>
+      }
   ]);
   return (
     <div>
