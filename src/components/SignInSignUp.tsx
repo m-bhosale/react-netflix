@@ -35,7 +35,6 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
     if (signIn) {
       signInWithEmail(inputData.email, inputData.password)
         .then((user) => {
-          navigate("/home");
         })
         .catch((err) => {
           setError(`Incorrect username or password`);
@@ -48,9 +47,7 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
         inputData.username
       )
         .then((user) => {
-          console.log(user);
           updatedDisplayname(user,inputData.username);
-          navigate("/home");
         })
         .catch((err) => {
           setError(`Incorrect username or password`);
@@ -75,7 +72,6 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
                 // Call HandleSignInSignUp function
                 HandleSignInSignUp(values);
                 if (loginError) {
-                  console.log("hello");
                   resetForm({ values });
                 }
                 // Set submitting state to false after form submission

@@ -47,10 +47,7 @@ export const signInWithEmail = (email: string, password: string) => {
 
 
 export const OnSignOut = () => {
-  const navigate = useNavigate();
   return signOut(auth).then(() => {
-    // Sign-out successful.
-    navigate('/')
     console.log('Sign-out successful')
   }).catch((error) => {
     throw error;

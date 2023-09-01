@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { setUserData } from "../store/userSlice";
 import SignOut from "./SignOut";
 const Body = () => {
-  const dispatch = useDispatch();
+
   const appRouter = createBrowserRouter([
     {
       path: "/browse",
@@ -34,18 +34,7 @@ const Body = () => {
     },
   ]);
 
-  useEffect(() => {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        const { email, displayName, uid, photoURL } = user;
-        dispatch(setUserData({ email, displayName, uid, photoURL }));
-      } else {
-        console.log("sign out and clear redux user state");
-        dispatch(setUserData({}));
-      }
-    });
-  }, []);
+
   return (
     <div>
       <RouterProvider router={appRouter} />
