@@ -1,5 +1,5 @@
-import Header from "./Header";
-import BackgroundImage from "./BackgroundImage";
+import Header from "../Header";
+import BackgroundImage from "../BackgroundImage";
 import SignInSignUp from "./SignInSignUp";
 
 const SignIn = () => {

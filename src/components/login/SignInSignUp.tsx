@@ -1,18 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import {
-  createUserWithEmail,
-  signInWithEmail,
-  useCreateUser,
-} from "../helper/api/login";
 import { useDispatch } from "react-redux";
-import { setUserData } from "../store/userSlice";
+import { signInWithEmail, createUserWithEmail } from "../../helper/api/login";
+import { setUserData } from "../../store/userSlice";
 
 function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
   const [loginError, setError] = useState("");
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const updatedDisplayname = (user,userName) => {
     console.log("user in update profile", user);

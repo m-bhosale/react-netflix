@@ -1,5 +1,5 @@
-import { OnSignOut } from "../helper/api/login";
-// import SignIn from "./SignIn";
+
+import { OnSignOut } from "../../helper/api/login";
 
 const SignOut = () => {
   OnSignOut();

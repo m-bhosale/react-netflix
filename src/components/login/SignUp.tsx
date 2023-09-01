@@ -1,5 +1,5 @@
-import BackgroundImage from './BackgroundImage';
-import Header from './Header';
+import BackgroundImage from '../BackgroundImage';
+import Header from '../Header';
 import SignInSignUp from './SignInSignUp';
 
 export default function SignUpComp() {
