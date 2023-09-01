@@ -1,11 +1,11 @@
+import React from 'react';
 
-const BackgroundImage = ({ imageUrl }:any) => {
-  console.log("login.jpg",imageUrl)
+const BackgroundImage = ({ imageUrl }: any) => {
   return (
-    <div className="backGroundImg absolute inset-0 w-full h-full overflow-hidden z-0">
+    <div className="fixed inset-0 flex items-center justify-center">
       <img
         src={imageUrl}
-        className="w-full h-full object-cover object-center"
+        className="min-w-full min-h-full object-cover object-center"
         alt=""
       />
     </div>

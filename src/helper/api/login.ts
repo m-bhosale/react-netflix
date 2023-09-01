@@ -1,13 +1,14 @@
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, UserCredential } from "firebase/auth";
 import { firebaseAuth } from "../../utils/firebase";
+import { useNavigate } from "react-router-dom";
 const auth = firebaseAuth;
 // const auth = getAuth(); // Create the auth object
-
-export const createUserWithEmail = (email: string, password: string) => {
+export const createUserWithEmail = (email: string, password: string ,userName:string) => {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential: UserCredential) => {
       // Signed in
       const user = userCredential.user;
+      OnUpdateProfile(auth, userName)
       console.log("Successfully created user:", user);
       return user; // Return the user if needed
     })
@@ -16,6 +17,20 @@ export const createUserWithEmail = (email: string, password: string) => {
       throw error; // Rethrow the error if needed
     });
 };
+export const OnUpdateProfile = (auth, user) => {
+  return updateProfile(auth.currentUser, {
+    displayName: user, photoURL: "https://example.com/jane-q-user/profile.jpg"
+  }).then(() => {
+    // Profile updated!
+    // ...
+  }).catch((error) => {
+    console.error('update profile error:', error);
+    throw error;
+    // An error occurred
+    // ...
+  });
+}
+
 export const signInWithEmail = (email: string, password: string) => {
   return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -25,9 +40,19 @@ export const signInWithEmail = (email: string, password: string) => {
       // ...
     })
     .catch((error) => {
-      throw error; 
+      throw error;
       console.error('sign in err error:', error);
     });
 }
 
-// export default createUserWithEmail;
+
+export const OnSignOut = () => {
+  const navigate = useNavigate();
+  return signOut(auth).then(() => {
+    // Sign-out successful.
+    navigate('/')
+    console.log('Sign-out successful')
+  }).catch((error) => {
+    throw error;
+  });
+}

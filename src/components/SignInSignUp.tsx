@@ -1,25 +1,25 @@
 import { Link, useNavigate } from "react-router-dom";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { useRef, useState } from "react";
-import { createUserWithEmail, signInWithEmail } from "../helper/api/login";
+import { useState } from "react";
+import {
+  createUserWithEmail,
+  signInWithEmail,
+  useCreateUser,
+} from "../helper/api/login";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../store/userSlice";
-import Home from "./Home";
 
-// import {useState} from "react"
 function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
-  // const [userName , setUserName] = useState('');
-  // const [userName , setUserName] = useState('');
-  // const [userName , setUserName] = useState('');
-  const userName = useRef('');
-  const email = useRef('')
-  const password = useRef('')
-
-  const [loginError, setError] = useState('');
-  const dispatch = useDispatch();
+  const [loginError, setError] = useState("");
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const updatedDisplayname = (user,userName) => {
+    console.log("user in update profile", user);
+    
+    const { email, uid, photoURL } = user;
+    dispatch(setUserData({ email, displayName:userName, uid, photoURL }));
+  };
   const validationSchema = Yup.object().shape({
     // Define your validation rules here
     email: Yup.string().email("Invalid email").required("Email is required"),
@@ -32,25 +32,28 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
     username: signUp && Yup.string().required("Username is required"),
   });
   const HandleSignInSignUp = (inputData: any) => {
-    console.log(inputData);
-
     if (signIn) {
       signInWithEmail(inputData.email, inputData.password)
         .then((user) => {
-          dispatch(setUserData(user));
           navigate("/home");
         })
         .catch((err) => {
-          setError(`Incorrect username or password`); 
+          setError(`Incorrect username or password`);
           console.log("Error while sing in ");
         });
     } else {
-      createUserWithEmail(inputData.email, inputData.password)
+      const data = createUserWithEmail(
+        inputData.email,
+        inputData.password,
+        inputData.username
+      )
         .then((user) => {
-          dispatch(setUserData(user));
+          console.log(user);
+          updatedDisplayname(user,inputData.username);
           navigate("/home");
         })
-        .catch(() => {
+        .catch((err) => {
+          setError(`Incorrect username or password`);
           console.log("Error while sing in ");
         });
     }
@@ -67,12 +70,12 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
                 password: "",
               }}
               validationSchema={validationSchema}
-              onSubmit={(values , { resetForm }) => {
+              onSubmit={(values, { resetForm }) => {
                 // Handle form submission
                 // Call HandleSignInSignUp function
                 HandleSignInSignUp(values);
                 if (loginError) {
-                  console.log("hello")
+                  console.log("hello");
                   resetForm({ values });
                 }
                 // Set submitting state to false after form submission
@@ -133,7 +136,9 @@ function SignInSignUp({ signInOrUp, signIn, signUp }: any) {
                   >
                     {signInOrUp}
                   </button>
-                  {loginError && <div className="text-red-500 text-sm">{error}</div>}
+                  {loginError && (
+                    <div className="text-red-500 text-sm">{loginError}</div>
+                  )}
                   <div className="flex items-center justify-between mb-11 md:mb-16">
                     <div className="flex items-center ">
                       <input
